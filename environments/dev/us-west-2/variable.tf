@@ -10,11 +10,6 @@ variable "aws_assume_role_arn" {
   type = string
 }
 
-variable "aws_assume_role_external_id" {
-  type      = string
-  sensitive = true
-}
-
 variable "session_name" {
   type = string
 }

@@ -1,13 +1,3 @@
-terraform {
-  required_version = ">= 1.0"
-  required_providers {
-    aws = {
-      source  = "hashicorp/aws"
-      version = ">= 4.0"
-    }
-  }
-}
-
 # Data source to get caller identity for reference
 data "aws_caller_identity" "current" {}
 
@@ -75,7 +65,8 @@ module "elasticache_redis" {
   # Parameter group
   create_parameter_group = var.create_parameter_group
   parameter_group_name   = var.parameter_group_name
-  parameter             = var.parameter
-  
+  parameter              = var.parameter
 
+  # Labels/tags from context module
+  tags = merge(module.context.tags, var.tags)
 }

@@ -20,6 +20,11 @@ variable "aws_region" {
   type        = string
 }
 
+variable "region" {
+  description = "AWS region for labels"
+  type        = string
+}
+
 variable "aws_assume_role_arn" {
   description = "ARN of the AWS IAM role to assume"
   type        = string
@@ -92,11 +97,6 @@ variable "port" {
 }
 
 # Cluster Mode Configuration
-variable "enable_cluster_mode" {
-  description = "Enable cluster mode for ElastiCache"
-  type        = bool
-  default     = false
-}
 variable "cluster_mode_num_node_groups" {
   description = "Number of node groups for cluster mode"
   type        = number
@@ -252,17 +252,9 @@ variable "parameter" {
   default = []
 }
 
-
-# Tags
+# Additional Tags
 variable "tags" {
-  description = "Tags to apply to resources"
+  description = "Additional tags to apply to resources"
   type        = map(string)
   default     = {}
-}
-
-# Feature Flags
-variable "apply_immediately" {
-  description = "Apply changes immediately"
-  type        = bool
-  default     = false
 }

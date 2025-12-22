@@ -1,0 +1,38 @@
+# Terraform job templates for GitLab CI/CD
+
+# Validate job template
+.validate_template:
+  stage: validate
+  script:
+    - terraform fmt -check
+    - terraform validate
+  only:
+    - merge_requests
+    - main
+  except:
+    - tags
+
+# Plan job template
+.plan_template:
+  extends: .terraform_base
+  stage: plan
+  script:
+    - terraform plan -out=tfplan
+    - terraform show tfplan > plan_output.txt
+  artifacts:
+    paths:
+      - $TF_WORK_DIR/tfplan
+      - $TF_WORK_DIR/plan_output.txt
+    expire_in: 7 days
+
+# Apply job template
+.apply_template:
+  extends: .terraform_base
+  stage: apply
+  script:
+    - terraform apply -auto-approve tfplan
+  dependencies:
+    - plan
+  only:
+    - main
+  when: manual

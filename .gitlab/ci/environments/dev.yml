@@ -1,0 +1,27 @@
+# Development environment jobs
+
+# Dev US-West-2 - Validate
+validate:dev:us-west-2:
+  extends:
+    - .validate_template
+    - .variables:dev:us-west-2
+
+# Dev US-West-2 - Plan
+plan:dev:us-west-2:
+  extends:
+    - .plan_template
+    - .variables:dev:us-west-2
+  only:
+    - merge_requests
+    - main
+
+# Dev US-West-2 - Apply
+apply:dev:us-west-2:
+  extends:
+    - .apply_template
+    - .variables:dev:us-west-2
+  environment:
+    name: dev/us-west-2
+    action: prepare
+  dependencies:
+    - plan:dev:us-west-2

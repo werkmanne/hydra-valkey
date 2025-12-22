@@ -1,0 +1,41 @@
+# Production environment jobs
+
+# Prod US-West-2 - Plan
+plan:prod:us-west-2:
+  extends:
+    - .plan_template
+    - .variables:prod:us-west-2
+  only:
+    - main
+  when: manual
+
+# Prod US-West-2 - Apply
+apply:prod:us-west-2:
+  extends:
+    - .apply_template
+    - .variables:prod:us-west-2
+  environment:
+    name: prod/us-west-2
+    action: prepare
+  dependencies:
+    - plan:prod:us-west-2
+
+# Prod US-East-1 - Plan
+plan:prod:us-east-1:
+  extends:
+    - .plan_template
+    - .variables:prod:us-east-1
+  only:
+    - main
+  when: manual
+
+# Prod US-East-1 - Apply
+apply:prod:us-east-1:
+  extends:
+    - .apply_template
+    - .variables:prod:us-east-1
+  environment:
+    name: prod/us-east-1
+    action: prepare
+  dependencies:
+    - plan:prod:us-east-1
