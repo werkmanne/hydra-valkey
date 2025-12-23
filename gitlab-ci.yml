@@ -1,16 +1,10 @@
 # Include all configuration files
 include:
-  - local: ".gitlab/ci/base.yml"
-  - local: ".gitlab/ci/job.yml"
+  - project: "shift4payments/legacy/devops/templates"
+    file: terraform/tf-stack/main.yml
   - local: ".gitlab/ci/environments/prod.yml"
   - local: ".gitlab/ci/environments/dev.yml"
 
-# Define pipeline stages
-stages:
-  - validate
-  - plan
-  - apply
-
 # Global variables
 variables:
-  AWS_DEFAULT_REGION: "${AWS_REGION}"
+  CI_JOB_TOKEN: "${CI_JOB_TOKEN}"

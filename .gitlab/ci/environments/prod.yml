@@ -2,18 +2,18 @@
 
 # Prod US-West-2 - Plan
 plan:prod:us-west-2:
-  extends:
-    - .plan_template
-    - .variables:prod:us-west-2
+  extends: terraform:plan
+  variables:
+    TF_ROOT: "environments/prod/us-west-2"
   only:
     - main
   when: manual
 
-# Prod US-West-2 - Apply
+# Prod US-West-2 - Deploy
 apply:prod:us-west-2:
-  extends:
-    - .apply_template
-    - .variables:prod:us-west-2
+  extends: terraform:deploy
+  variables:
+    TF_ROOT: "environments/prod/us-west-2"
   environment:
     name: prod/us-west-2
     action: prepare
@@ -22,18 +22,18 @@ apply:prod:us-west-2:
 
 # Prod US-East-1 - Plan
 plan:prod:us-east-1:
-  extends:
-    - .plan_template
-    - .variables:prod:us-east-1
+  extends: terraform:plan
+  variables:
+    TF_ROOT: "environments/prod/us-east-1"
   only:
     - main
   when: manual
 
-# Prod US-East-1 - Apply
+# Prod US-East-1 - Deploy
 apply:prod:us-east-1:
-  extends:
-    - .apply_template
-    - .variables:prod:us-east-1
+  extends: terraform:deploy
+  variables:
+    TF_ROOT: "environments/prod/us-east-1"
   environment:
     name: prod/us-east-1
     action: prepare
